@@ -10,7 +10,7 @@ from storage.urls import BaseUrls
 
 def pytest_addoption(parser):
     """Функция для добавления параметров при запуске тестов в командной строке"""
-    parser.addoption("--url", default=BaseUrls.COMON_UI_URL, action="store")
+    parser.addoption("--url", default=BaseUrls.AMERICOR_UI_URL, action="store")
     parser.addoption("--run_local", default=False, action="store")
     parser.addoption(
         "--incognito", action="store_true", default=False, help="Запуск в режиме инкогнито"
@@ -42,7 +42,7 @@ def browser(request):
         options.add_argument(additional_option)
 
     browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
-    browser.get(BaseUrls.COMON_UI_URL)
+    browser.get(BaseUrls.AMERICOR_UI_URL)
     yield browser
     allure.attach(browser.get_screenshot_as_png(), name="screenshot", attachment_type=allure.attachment_type.PNG)
     browser.quit()
