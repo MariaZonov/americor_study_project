@@ -37,12 +37,12 @@ def browser(request):
     """Функция-фикстура для работы с браузером"""
     options = webdriver.ChromeOptions()
 
-    additional_option = request.param.get("additional_option", None)
+    additional_option = getattr(request, 'param', {}).get("additional_option", None)
     if additional_option:
         options.add_argument(additional_option)
 
     browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
-    browser.get(BaseUrls.AMERICOR_UI_URL)
+    browser.get(BaseUrls.SAUCEDEMO_UI_URL)
     yield browser
     allure.attach(browser.get_screenshot_as_png(), name="screenshot", attachment_type=allure.attachment_type.PNG)
     browser.quit()
